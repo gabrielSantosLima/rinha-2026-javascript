@@ -1,0 +1,6 @@
+*.tflite
+*.gz
+__pycache__
+.venv
+data
+*.keras
