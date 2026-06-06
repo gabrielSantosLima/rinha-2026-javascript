@@ -3,6 +3,7 @@ import argparse
 import os
 import logging
 from custom_metrics import BinaryFBetaScore
+import numpy as np
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -36,26 +37,8 @@ def main(args: argparse.Namespace):
     converter = tensorflow.lite.TFLiteConverter.from_keras_model(model)
 
     # Quantization
-    logging.info(f"Applying quantization method: {args.quantization}...")
-    if args.quantization == "float16":
-        converter.optimizations = [tensorflow.lite.Optimize.DEFAULT]
-        converter.target_spec.supported_types = [tensorflow.float16]
-    elif args.quantization == "int8":
-        converter.optimizations = [tensorflow.lite.Optimize.DEFAULT]
-        converter.target_spec.supported_ops = [
-            tensorflow.lite.OpsSet.TFLITE_BUILTINS_INT8
-        ]
-        converter.inference_input_type = tensorflow.int8
-        converter.inference_output_type = tensorflow.int8
-    elif args.quantization == "uint8":
-        converter.optimizations = [tensorflow.lite.Optimize.DEFAULT]
-        converter.target_spec.supported_ops = [
-            tensorflow.lite.OpsSet.TFLITE_BUILTINS_UINT8
-        ]
-        converter.inference_input_type = tensorflow.uint8
-        converter.inference_output_type = tensorflow.uint8
-    elif args.quantization == "fp32":
-        converter.optimizations = [tensorflow.lite.Optimize.DEFAULT]
+    converter.optimizations = [tensorflow.lite.Optimize.DEFAULT]
+    converter.target_spec.supported_types = [tensorflow.float16]
 
     # Converting...
     logging.info("Converting model to TFLite format...")
@@ -73,11 +56,5 @@ def main(args: argparse.Namespace):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", help="Path to the model to convert")
-    parser.add_argument(
-        "--quantization",
-        help="Quantization method (float16, int8, uint8, fp32)",
-        default="fp32",
-        choices=["float16", "int8", "uint8", "fp32"],
-    )
     args = parser.parse_args()
     main(args)
