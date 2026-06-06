@@ -1,0 +1,10 @@
+{
+  "participants": ["Gabriel Dos Santos Lima"],
+  "social": [
+    "https://github.com/gabrielSantosLima/",
+    "https://www.linkedin.com/in/gabriel-dos-santos-lima-a127213a3/"
+  ],
+  "source-code-repo": "https://github.com/gabrielSantosLima/rinha-2026-javascript",
+  "stack": ["nodejs", "python", "tensorflow", "keras", "onnx", "nginx"],
+  "open_to_work": true
+}

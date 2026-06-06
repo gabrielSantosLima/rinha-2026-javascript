@@ -1,8 +1,0 @@
-*.tflite
-*.gz
-__pycache__
-.venv
-data
-*.keras
-*.h5
-experiment_*/
